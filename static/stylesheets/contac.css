@@ -1,0 +1,47 @@
+.nav-left a {
+    color: black;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+h1, h3 {
+    color: black;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    position: absolute;
+    font-size: 5em;
+    bottom: 5%;
+    left: 10%;
+}
+
+.contact-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 25%;
+    right: 15%;
+}
+
+.vertical-line {
+    width: 2px;
+    height: 80px;
+    background-color: black;
+    margin-right: 20px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-info p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+}

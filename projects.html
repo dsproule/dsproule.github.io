@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Projects | Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/stylesheets/shared.css">
+    <link rel="stylesheet" href="/static/stylesheets/projects.css">
+    <!-- <link rel="stylesheet" href="/static/stylesheets//projects.css"> -->
+    <link rel="icon" type="image/png" sizes="64x64" href="/static/images/D-2.png">
+    <style>
+        
+        .background {
+            background-image: url("../static/images//projects.html.jpg");
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="background">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="/" class="">Home</a>
+                <a href="/projects.html">Projects</a>
+                <a href="/resume.html" class="">Resume</a>
+                <a href="/workExperience.html" class="">Work<br>Experience</a>
+                <a href="/contact.html" class="" >Contact</a>
+            </div>
+        </nav>
+
+        
+<div class="project-list">
+    <h1><strong>Projects</strong></h1>
+    <ul>
+        <li>
+            <span class="project-number">01.</span>
+            <span class="project-title">NLP Transformer-Encoder Transcription Model</span>
+            <a href="#" class="view-more" data-project="1" data-title="NLP Transformer-Encoder Transcription Model">VIEW MORE</a>
+        </li>
+        <li>
+            <span class="project-number">02.</span>
+            <span class="project-title">De-1 SoC FPGA Gameboy Emulator</span>
+            <!-- <img src="/static/images/gb.jpg"> -->
+            <a href="#" class="view-more" data-project="2" data-title="De-1 SoC FPGA Gameboy Emulator" data-image="/static/images/gb.jpg">VIEW MORE</a>
+        </li>
+        <li>
+            <span class="project-number">03.</span>
+            <span class="project-title">Priority Based Low Latency Scheduler</span>
+            <a href="" class="view-more" data-project="3" data-title="Priority Based Low Latency Scheduler">VIEW MORE</a>
+        </li>
+        <li>
+            <span class="project-number">04.</span>
+            <span class="project-title">Web Scraping Dataset Construction Toolkit for Convolution Neural Networks</span>
+            <a href="" class="view-more" data-project="4" data-title="Web Scraping Dataset Construction Toolkit for Convolution Neural Networks">VIEW MORE</a>
+        </li>
+        <li>
+            <span class="project-number">05.</span>
+            <span class="project-title">De-1 SoC FPGA Chat Client</span>
+            <a href="" class="view-more" data-project="5" data-title="De-1 SoC FPGA Chat Client">VIEW MORE</a>
+
+        </li>
+    </ul>
+</div>
+
+<!-- Modal Structure -->
+<div id="projectModal" class="modal">
+    <div class="modal-content">
+        <span class="close"></span>
+        <div id="modal-title"></div>
+        <hr>
+        <div id="modal-text">Project details will appear here.</div>
+        <img id="modal-image" src="" alt="Project Image" style="width: 100%; margin-top: 20px;">
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('projectModal');
+    var span = document.getElementsByClassName('close')[0];
+
+    document.querySelectorAll('.view-more').forEach(function(link) {
+        link.onclick = function(event) {
+            event.preventDefault();
+            var projectId = this.getAttribute('data-project');
+            var projectImage = this.getAttribute('data-image');
+
+            var projectDetails = {
+                1: "Developed a neural network transcription model that would convert regular speech into text. It could run in real time, sampling audio data to convert into inputs. It would perform a fast Fourier transform on waveforms to serve as inputs to the convolutional layers, which were then used as embeddings for the transformer architecture. All code was developed in Python using PyTorch.",
+                2: "Using the De-1 SoC FPGA board, I, along with two others, developed a hardware emulator of the Gameboy. We designed the hardware to specifications of the original Nintendo product. The work was collaborative, but my main responsibility was the development of the graphics unit. Development centered around the creation of automated test benches and SystemVerilog digital logic.",
+                3: "Within the Linux kernel, I developed a custom scheduling class that would beat the system's default CFS scheduler. Processes would be assigned tasks based on the resources required/intensiveness of the program, which would cause the scheduler to reorganize and prioritize time allocation for optimal completion of all processes.",
+                4: "I built a framework facilitating the development of training datasets for image-based models. The framework scraped image databases and built a collection of images upon the input of a keyword. I also provided support for organization, generalization, and removal of improper photos.",
+                5: "Leveraged low-level interfaces within the De-1 SoC board in a Linux environment to create the client in a chat network. Communicated with the external server, managing all interfacing, display, and functionality in C.",
+            };
+
+            var modalImage = document.getElementById('modal-image');
+            if (projectImage) {
+                modalImage.src = projectImage;
+                modalImage.style.display = 'block';
+            } else {
+                modalImage.style.display = 'none';
+            }
+            document.getElementById('modal-title').innerHTML = this.getAttribute('data-title');
+            document.getElementById('modal-text').innerHTML = projectDetails[projectId];
+
+            modal.style.display = 'block';
+        };
+    });
+
+    span.onclick = function() {
+        modal.style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+});
+
+</script>
+
+
+        <h3 class="portfolio-tag"><strong>Portfolio</strong></h3>
+
+    </div>
+
+    
+</body>
+</html>
