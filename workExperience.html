@@ -6,14 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/stylesheets/shared.css">
     <link rel="stylesheet" href="/static/stylesheets/workExperience.css">
-    <!-- <link rel="stylesheet" href="/static/stylesheets//workExperience.css"> -->
+    <link rel="stylesheet" href="/static/stylesheets/modal.css">
     <link rel="icon" type="image/png" sizes="64x64" href="/static/images/D-2.png">
     <style>
-        
         .background {
             background-image: url("../static/images/workExperience.jpg");
         }
-        
     </style>
 </head>
 <body>
@@ -45,6 +43,7 @@
         <div class="lab-containter">
             <h3>Robotics Workshop @ Los Angeles, CA</h3>
             <p>Developed curricula, presented and facilitated a robotics workshop with underprivileged, first-generation immigrant students from Latin America. Topics included scripting in python, modification of existing hardware, interfacing between code/open environment and theory surrounding electrical topics such as voltage, current, transistors and basic circuitry. </p>
+            <!-- <a href="#" class="view-more" data-project="2" data-title="" data-image1="/static/images/rw1.jpeg" data-image2="/static/images/rw2.jpeg" data-image3="/static/images/rw3.jpeg">VIEW MORE</a> -->
         </div>
     </div>
 
@@ -52,6 +51,71 @@
         <h3 class="portfolio-tag"><strong>Portfolio</strong></h3>
 
     </div>
+
+<!-- Modal Structure -->
+<div id="projectModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="carousel">
+            <img id="carousel-image" src="" alt="Project Image" style="width: 100%; margin-top: 20px;">
+            <button class="prev" onclick="changeImage(-1)">&#10094;</button>
+            <button class="next" onclick="changeImage(1)">&#10095;</button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('projectModal');
+    var span = document.getElementsByClassName('close')[0];
+    var carouselImage = document.getElementById('carousel-image');
+    var images = [];
+    var currentIndex = 0;
+
+    document.querySelectorAll('.view-more').forEach(function(link) {
+        link.onclick = function(event) {
+            event.preventDefault();
+            var projectId = this.getAttribute('data-project');
+            
+            images = [
+                this.getAttribute('data-image1'),
+                this.getAttribute('data-image2'),
+                this.getAttribute('data-image3')
+            ].filter(Boolean);
+
+            if (images.length > 0) {
+                currentIndex = 0;
+                carouselImage.src = images[currentIndex];
+                document.querySelector('.prev').style.display = 'block';
+                document.querySelector('.next').style.display = 'block';
+            } else {
+                carouselImage.style.display = 'none';
+                document.querySelector('.prev').style.display = 'none';
+                document.querySelector('.next').style.display = 'none';
+            }
+
+            modal.style.display = 'block';
+        };
+    });
+
+    span.onclick = function() {
+        modal.style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+
+    window.changeImage = function(direction) {
+        currentIndex = (currentIndex + direction + images.length) % images.length;
+        carouselImage.src = images[currentIndex];
+    };
+});
+
+
+</script>
 
     
 </body>

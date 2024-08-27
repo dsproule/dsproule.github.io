@@ -6,15 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/stylesheets/shared.css">
     <link rel="stylesheet" href="/static/stylesheets/projects.css">
-    <!-- <link rel="stylesheet" href="/static/stylesheets//projects.css"> -->
+    <link rel="stylesheet" href="/static/stylesheets/modal.css">
     <link rel="icon" type="image/png" sizes="64x64" href="/static/images/D-2.png">
-    <style>
-        
-        .background {
-            background-image: url("../static/images//projects.html.jpg");
-        }
-        
-    </style>
 </head>
 <body>
     <div class="background">
@@ -41,7 +34,8 @@
             <span class="project-number">02.</span>
             <span class="project-title">De-1 SoC FPGA Gameboy Emulator</span>
             <!-- <img src="/static/images/gb.jpg"> -->
-            <a href="#" class="view-more" data-project="2" data-title="De-1 SoC FPGA Gameboy Emulator" data-image="/static/images/gb.jpg">VIEW MORE</a>
+            <a href="#" class="view-more" data-project="2" data-title="De-1 SoC FPGA Gameboy Emulator" data-image1="/static/images/gb.jpg" data-image2="/static/images/gb2.jpg">VIEW MORE</a>
+
         </li>
         <li>
             <span class="project-number">03.</span>
@@ -59,17 +53,22 @@
             <a href="" class="view-more" data-project="5" data-title="De-1 SoC FPGA Chat Client">VIEW MORE</a>
 
         </li>
+        
     </ul>
 </div>
 
 <!-- Modal Structure -->
 <div id="projectModal" class="modal">
     <div class="modal-content">
-        <span class="close"></span>
+        <span class="close">&times;</span>
         <div id="modal-title"></div>
         <hr>
         <div id="modal-text">Project details will appear here.</div>
-        <img id="modal-image" src="" alt="Project Image" style="width: 100%; margin-top: 20px;">
+        <div class="carousel">
+            <img id="carousel-image" src="" alt="Project Image" style="width: 100%; margin-top: 20px;">
+            <button class="prev" onclick="changeImage(-1)">&#10094;</button>
+            <button class="next" onclick="changeImage(1)">&#10095;</button>
+        </div>
     </div>
 </div>
 
@@ -77,13 +76,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     var modal = document.getElementById('projectModal');
     var span = document.getElementsByClassName('close')[0];
+    var carouselImage = document.getElementById('carousel-image');
+    var images = [];
+    var currentIndex = 0;
 
     document.querySelectorAll('.view-more').forEach(function(link) {
         link.onclick = function(event) {
             event.preventDefault();
             var projectId = this.getAttribute('data-project');
-            var projectImage = this.getAttribute('data-image');
-
             var projectDetails = {
                 1: "Developed a neural network transcription model that would convert regular speech into text. It could run in real time, sampling audio data to convert into inputs. It would perform a fast Fourier transform on waveforms to serve as inputs to the convolutional layers, which were then used as embeddings for the transformer architecture. All code was developed in Python using PyTorch.",
                 2: "Using the De-1 SoC FPGA board, I, along with two others, developed a hardware emulator of the Gameboy. We designed the hardware to specifications of the original Nintendo product. The work was collaborative, but my main responsibility was the development of the graphics unit. Development centered around the creation of automated test benches and SystemVerilog digital logic.",
@@ -91,14 +91,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 4: "I built a framework facilitating the development of training datasets for image-based models. The framework scraped image databases and built a collection of images upon the input of a keyword. I also provided support for organization, generalization, and removal of improper photos.",
                 5: "Leveraged low-level interfaces within the De-1 SoC board in a Linux environment to create the client in a chat network. Communicated with the external server, managing all interfacing, display, and functionality in C.",
             };
+            
+            images = [
+                this.getAttribute('data-image1'),
+                this.getAttribute('data-image2'),
+                this.getAttribute('data-image3')
+            ].filter(Boolean);
 
-            var modalImage = document.getElementById('modal-image');
-            if (projectImage) {
-                modalImage.src = projectImage;
-                modalImage.style.display = 'block';
+            if (images.length > 0) {
+                currentIndex = 0;
+                carouselImage.src = images[currentIndex];
+                document.querySelector('.prev').style.display = 'block';
+                document.querySelector('.next').style.display = 'block';
             } else {
-                modalImage.style.display = 'none';
+                carouselImage.style.display = 'none';
+                document.querySelector('.prev').style.display = 'none';
+                document.querySelector('.next').style.display = 'none';
             }
+
             document.getElementById('modal-title').innerHTML = this.getAttribute('data-title');
             document.getElementById('modal-text').innerHTML = projectDetails[projectId];
 
@@ -115,7 +125,13 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'none';
         }
     };
+
+    window.changeImage = function(direction) {
+        currentIndex = (currentIndex + direction + images.length) % images.length;
+        carouselImage.src = images[currentIndex];
+    };
 });
+
 
 </script>
 
